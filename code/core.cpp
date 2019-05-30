@@ -16,6 +16,10 @@ int main() {
 	cout << "hello";
 	camera_control camera;
 	camera.followLine();
+	camera.goToRedColumn()
+	camera.goToGreenColumn()
+	camera.goToBlueColumn()
+	camera.goToFinish()
 
 	return 0;
 }

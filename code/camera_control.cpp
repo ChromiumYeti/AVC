@@ -188,6 +188,114 @@ double camera_control::getProportional()
 }
 // Quad 4
 
+void camera_control::goToRedColumn()
+{
+	init(0);
+	open_screen_stream();
+	
+	
+		
+	while (true){
+		
+
+		
+		getRedProportional();
+		//getGreenProportional();
+		//getBlueProportional();
+		
+
+		
+		double scale = 0.025;
+		
+		double ls = 45 + ((-coefLeft * scale)); 
+		double rs = 50 + ((coefRight * scale)); 
+		
+		std::cout << "Left Speed: " << ls << "  Right speed: " << rs << std::endl;
+		
+		//std::cout << propSpd << std::endl;
+		
+		set_motors(5, ls);
+		set_motors(1, rs);
+		
+
+		hardware_exchange();
+	
+	}
+	
+
+}
+void camera_control::goToGreenColumn()
+{
+	init(0);
+	open_screen_stream();
+	
+	
+		
+	while (true){
+		
+
+		
+		//getRedProportional();
+		getGreenProportional();
+		//getBlueProportional();
+		
+
+		
+		double scale = 0.025;
+		
+		double ls = 45 + ((-coefLeft * scale)); 
+		double rs = 50 + ((coefRight * scale)); 
+		
+		std::cout << "Left Speed: " << ls << "  Right speed: " << rs << std::endl;
+		
+		//std::cout << propSpd << std::endl;
+		
+		set_motors(5, ls);
+		set_motors(1, rs);
+		
+
+		hardware_exchange();
+	
+	}
+	
+
+}
+void camera_control::goToBlueColumn()
+{
+	init(0);
+	open_screen_stream();
+	
+	
+		
+	while (true){
+		
+
+		
+		//getRedProportional();
+		//getGreenProportional();
+		getBlueProportional();
+		
+
+		
+		double scale = 0.025;
+		
+		double ls = 45 + ((-coefLeft * scale)); 
+		double rs = 50 + ((coefRight * scale)); 
+		
+		std::cout << "Left Speed: " << ls << "  Right speed: " << rs << std::endl;
+		
+		//std::cout << propSpd << std::endl;
+		
+		set_motors(5, ls);
+		set_motors(1, rs);
+		
+
+		hardware_exchange();
+	
+	}
+	
+
+}
 void camera_control::updateRedThreshold()
 {
 
@@ -264,7 +372,7 @@ double camera_control::getRedProportional()
 {
 	int red[320];
 	take_picture();
-	//updateWhiteThreshold();
+	//updateRedThreshold();
 	
 	int redWidth = 0;
 	int redStart = 0;
@@ -284,9 +392,9 @@ double camera_control::getRedProportional()
 				first = false;
 				redStart = i;
 			}
-			tapeWidth++;
+			redWidth++;
 			set_pixel(120,i, 0, 255, 255);
-			white[i] = 1;
+			red[i] = 1;
 		} 
 	}
 	
@@ -303,9 +411,7 @@ double camera_control::getRedProportional()
 
 	double err = 0;
 
-	//for (int i = 0; i < 320; i++) {
-	//	err += (i - 160) * white[i];
-	//}
+
 	
 	coefLeft = 160 - lineCentre;
 	coefRight = lineCentre - 160;
